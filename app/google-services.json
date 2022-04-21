@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "638752893365",
+    "project_id": "share-shop-fcd50",
+    "storage_bucket": "share-shop-fcd50.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:638752893365:android:ae98247d77d88a2c2751fc",
+        "android_client_info": {
+          "package_name": "edu.uga.cs.shareshop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "638752893365-kn8ta08meh27u8frsgi74mki4i29oflg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuMmyBB-hBMQdVK-NNbF_O4-0061RUTuw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "638752893365-kn8ta08meh27u8frsgi74mki4i29oflg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
