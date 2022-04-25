@@ -40,11 +40,10 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             List<AuthUI.IdpConfig> providers = Arrays.asList(new AuthUI.IdpConfig.EmailBuilder().build());
-
             Intent signInIntent = AuthUI.getInstance()
                     .createSignInIntentBuilder()
+                    .setIsSmartLockEnabled(false)
                     .setAvailableProviders(providers)
-                    //.setTheme(R.style.LoginTheme)
                     .build();
             signInLauncher.launch(signInIntent);
         }
