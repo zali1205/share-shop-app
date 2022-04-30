@@ -50,7 +50,7 @@ public class MainMenu extends AppCompatActivity {
     private class ViewListButtonListener implements View.OnClickListener {
         @Override
         public void onClick(View v) {
-            Intent mainActivityIntent = new Intent(v.getContext(), ViewListActivity.class);
+            Intent mainActivityIntent = new Intent(v.getContext(), ViewCurrentListActivity.class);
             startActivity(mainActivityIntent);
         }
     }

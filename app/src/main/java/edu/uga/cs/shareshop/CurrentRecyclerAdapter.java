@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -18,23 +19,62 @@ public class CurrentRecyclerAdapter extends RecyclerView.Adapter<CurrentRecycler
 
     private List<Item> currentList; // list for working with recycler
 
-    public CurrentRecyclerAdapter( List<Item> currentList ) {
+    public ButtonListeners onClick;
+
+    public interface ButtonListeners {
+
+        void payOnClick( View v, int position );
+        void editOnClick( View v, int position );
+        void deleteOnClick( View v, int position );
+    }
+
+    public CurrentRecyclerAdapter( List<Item> currentList, ButtonListeners listener ) {
         this.currentList = currentList;
+        onClick = listener;
     } // constructor takes a list to start
 
     // basic holder class for storing one card's worth of data
     class CurrentHolder extends RecyclerView.ViewHolder {
         // ui controls
-        TextView id;
-        TextView date;
-        TextView result;
+        TextView title;
+        ImageView status;
+        TextView detail;
+        ImageView pay;
+        ImageView edit;
+        ImageView delete;
 
         public CurrentHolder(View itemView ) { // constructor with item view to attach objects
             super(itemView);
 
-            id = itemView.findViewById( R.id.id );
-            date = itemView.findViewById( R.id.date );
-            result = itemView.findViewById( R.id.result );
+            // value stores
+            title = itemView.findViewById( R.id.title );
+            status = itemView.findViewById( R.id.urgency );
+            detail = itemView.findViewById( R.id.detail );
+
+            // button identifiers
+            pay = itemView.findViewById( R.id.pay );
+            edit = itemView.findViewById( R.id.edit );
+            delete = itemView.findViewById( R.id.delete );
+
+            // setting click listeners
+            pay.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick.payOnClick( view, getAdapterPosition() );
+                }
+            });
+            edit.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick.editOnClick( view, getAdapterPosition() );
+                }
+            });
+            delete.setOnClickListener( new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClick.deleteOnClick( view, getAdapterPosition() );
+                }
+            });
         }
     }
 
@@ -50,9 +90,23 @@ public class CurrentRecyclerAdapter extends RecyclerView.Adapter<CurrentRecycler
     public void onBindViewHolder( CurrentHolder holder, int position ) {
         Item item = currentList.get( position ); // find correct position
         // set ui's to proper values from the imported list
-        holder.id.setText( "Set # :\t\t\t" + quiz.getId() );
-        holder.date.setText( "Date :\t\t\t" + quiz.getQuizDate() );
-        holder.result.setText( "# correct : \t"+ quiz.getResult() );
+        holder.title.setText( item.getName() );
+        // fix the status sign
+        String check = item.getPriority();
+        if ( check.equals("Please") )
+        {
+            holder.status.setImageResource( R.drawable.please );
+        } // if
+        else if ( check.equals("Wanted") )
+        {
+            holder.status.setImageResource( R.drawable.wanted );
+        } // else if
+        else if ( check.equals("Urgent") )
+        {
+            holder.status.setImageResource( R.drawable.urgency );
+        } // else if
+
+        holder.detail.setText( item.getDetail() );
     }
 
     @Override

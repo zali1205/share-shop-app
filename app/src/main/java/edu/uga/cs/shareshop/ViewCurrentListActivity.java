@@ -36,8 +36,22 @@ public class ViewCurrentListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         currentList = new ArrayList<Item>();
-        recyclerAdapter = new CurrentRecyclerAdapter(currentList); // pass basic list into the adapter
-        recyclerView.setAdapter(recyclerAdapter); // set the view to the adapter
+        recyclerAdapter = new CurrentRecyclerAdapter( currentList, new CurrentRecyclerAdapter.ButtonListeners() {
+            @Override
+            public void payOnClick(View v, int position) {
+                Log.d(TAG, "payOnClick at position "+position);
+            }
+
+            @Override
+            public void editOnClick(View v, int position) {
+                Log.d(TAG, "editOnClick at position "+position);
+            }
+            @Override
+            public void deleteOnClick(View v, int position) {
+                Log.d(TAG, "deleteOnClick at position "+position);
+            }
+        });
+        recyclerView.setAdapter( recyclerAdapter ); // set the view to the adapter
 
         // read from database
 
