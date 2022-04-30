@@ -5,7 +5,6 @@ public class Item {
     private String purchaser;
     private boolean isPurchased;
     private double price;
-    private int quantity;
     private int priority;
 
     public Item() {
@@ -13,16 +12,14 @@ public class Item {
         this.purchaser = null;
         this.isPurchased = false;
         this.price = 0;
-        this.quantity = 0;
         this.priority = 0;
     }
 
-    public Item(String name, String purchaser, boolean isPurchased, double price, int quantity, int priority) {
+    public Item(String name, String purchaser, boolean isPurchased, double price, int priority) {
         this.name = name;
         this.purchaser = purchaser;
         this.isPurchased = isPurchased;
         this.price = price;
-        this.quantity = quantity;
         this.priority = priority;
     }
 
@@ -56,14 +53,6 @@ public class Item {
 
     public void setPrice(double price) {
         this.price = price;
-    }
-
-    public int getQuantity() {
-        return this.quantity;
-    }
-
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
     }
 
     /*
