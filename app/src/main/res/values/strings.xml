@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Share Shop</string>
+
+    <string name="not_yet">Unspecified</string>
+
+    <string name="pay">Click to pay</string>
+    <string name="edit">Click to edit</string>
+    <string name="delete">Click to delete</string>
+
 </resources>

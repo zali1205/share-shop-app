@@ -24,7 +24,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
     private final String TAG = "testing recycler view";
 
     private RecyclerView recyclerView; // view
-    private CurrentListRecyclerAdapter recyclerAdapter; // adapter class
+    private CurrentRecyclerAdapter recyclerAdapter; // adapter class
 
     private List<Item> currentList = null; // list for storage
 
@@ -36,7 +36,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerView);
 
         currentList = new ArrayList<Item>();
-        recyclerAdapter = new CurrentListRecyclerAdapter(currentList); // pass basic list into the adapter
+        recyclerAdapter = new CurrentRecyclerAdapter(currentList); // pass basic list into the adapter
         recyclerView.setAdapter(recyclerAdapter); // set the view to the adapter
 
         // read from database
