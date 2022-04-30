@@ -13,6 +13,7 @@ import com.firebase.ui.auth.AuthUI;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainMenu extends AppCompatActivity {
 
@@ -21,6 +22,7 @@ public class MainMenu extends AppCompatActivity {
     private Button settleUpButton;
     private Button signOutButton;
     private TextView welcomeTextView;
+    private String userEmail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +37,14 @@ public class MainMenu extends AppCompatActivity {
         settleUpButton.setOnClickListener(new SettleUpButtonListener());
         signOutButton = findViewById(R.id.signOutButton);
         signOutButton.setOnClickListener(new SignOutButtonListener());
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (user != null) {
+            userEmail = user.getEmail();
+        } else {
+            userEmail = "NaN";
+        }
+        welcomeTextView.setText("Welcome " + userEmail + "!");
     }
 
     private class ViewListButtonListener implements View.OnClickListener {

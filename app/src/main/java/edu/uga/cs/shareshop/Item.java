@@ -5,17 +5,25 @@ public class Item {
     private String purchaser;
     private boolean isPurchased;
     private double price;
-    private int priority;
+    private String priority;
 
     public Item() {
         this.name = null;
         this.purchaser = null;
         this.isPurchased = false;
         this.price = 0;
-        this.priority = 0;
+        this.priority = null;
     }
 
-    public Item(String name, String purchaser, boolean isPurchased, double price, int priority) {
+    public Item(String name, String priority) {
+        this.name = name;
+        this.purchaser = null;
+        this.isPurchased = false;
+        this.price = 0;
+        this.priority = priority;
+    }
+
+    public Item(String name, String purchaser, boolean isPurchased, double price, String priority) {
         this.name = name;
         this.purchaser = purchaser;
         this.isPurchased = isPurchased;
@@ -62,11 +70,11 @@ public class Item {
         2 - Wanted
         3 - Urgency
      */
-    public int getPriority() {
+    public String getPriority() {
         return this.priority;
     }
 
-    public void setPriority(int priority) {
+    public void setPriority(String priority) {
         this.priority = priority;
     }
 
