@@ -45,7 +45,8 @@ public class AddNewItemActivity extends AppCompatActivity {
                 int selectedId = priorityRadioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = findViewById(selectedId);
                 String priority = radioButton.getText().toString();
-                final Item item = new Item(name, priority);
+                String detail = "placeholder";
+                final Item item = new Item(name, priority, detail);
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
                 DatabaseReference myRef = database.getReference("Items");
