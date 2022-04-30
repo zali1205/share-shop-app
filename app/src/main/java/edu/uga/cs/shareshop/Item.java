@@ -68,11 +68,7 @@ public class Item {
     }
 
     /*
-        Return the priority value of the item.
-        0 - Undefined
-        1 - Please
-        2 - Wanted
-        3 - Urgency
+
      */
     public String getPriority() {
         return this.priority;

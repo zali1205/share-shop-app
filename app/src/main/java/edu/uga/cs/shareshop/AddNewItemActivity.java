@@ -21,6 +21,7 @@ public class AddNewItemActivity extends AppCompatActivity {
 
 
     private EditText editTextName;
+    private EditText editTextDescription;
     private RadioGroup priorityRadioGroup;
     private Button addButton;
 
@@ -29,6 +30,7 @@ public class AddNewItemActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_item);
         editTextName = findViewById(R.id.editTextName);
+        editTextDescription = findViewById(R.id.editTextDescription);
         addButton = findViewById(R.id.addButton);
         priorityRadioGroup = findViewById(R.id.radioGroup);
         addButton.setOnClickListener(new AddButtonClickListener());
@@ -42,10 +44,10 @@ public class AddNewItemActivity extends AppCompatActivity {
                 return;
             } else {
                 String name = editTextName.getText().toString();
+                String detail = editTextDescription.getText().toString();
                 int selectedId = priorityRadioGroup.getCheckedRadioButtonId();
                 RadioButton radioButton = findViewById(selectedId);
                 String priority = radioButton.getText().toString();
-                String detail = "placeholder";
                 final Item item = new Item(name, priority, detail);
 
                 FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -55,6 +57,7 @@ public class AddNewItemActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         Toast.makeText(getApplicationContext(), "Item created for " + item.getName(), Toast.LENGTH_SHORT).show();
                         editTextName.setText("");
+                        editTextDescription.setText("");
                         priorityRadioGroup.clearCheck();
                     }
                 }).addOnFailureListener(new OnFailureListener() {
