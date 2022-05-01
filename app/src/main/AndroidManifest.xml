@@ -10,46 +10,57 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ShareShop">
         <activity
+            android:name=".EditItemActivity"
+            android:exported="false" />
+        <activity
             android:name=".SettleUpActivity"
-            android:parentActivityName=".MainMenu"
-            android:exported="false" >
+            android:exported="false"
+            android:parentActivityName=".MainMenu">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".ViewCurrentListActivity"
-            android:parentActivityName=".MainMenu"
-            android:exported="false" >
+            android:exported="false"
+            android:parentActivityName=".MainMenu">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".ViewPurchasedListActivity"
-            android:parentActivityName=".MainMenu"
-            android:exported="false" >
+            android:exported="false"
+            android:parentActivityName=".MainMenu">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".AddNewItemActivity"
-            android:parentActivityName=".MainMenu"
-            android:exported="false" >
+            android:exported="false"
+            android:parentActivityName=".MainMenu">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
-            <meta-data android:name="android.support.PARENT_ACTIVITY"
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".MainMenu"
-            android:exported="false" >
-        </activity>
+            android:exported="false"></activity>
         <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
