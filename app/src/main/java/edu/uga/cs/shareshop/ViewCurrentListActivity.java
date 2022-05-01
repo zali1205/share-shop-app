@@ -61,7 +61,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
 
         currentList = new ArrayList<Item>();
 
-        // listener for handling reading from the databse as it is updated in real time.
+        // listener for handling reading from the database as it is updated in real time.
         dbRef.addListenerForSingleValueEvent( new ValueEventListener() {
 
             @Override
@@ -78,7 +78,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                 }  // for
                 Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): setting recyclerAdapter" );
 
-                // Now, create a CurrentRecyclerAdapter to populate a ReceyclerView to display the job leads.
+                // Now, create a CurrentRecyclerAdapter to populate a RecyclerView to display the job leads.
                 recyclerAdapter = new CurrentRecyclerAdapter( currentList, new CurrentRecyclerAdapter.ButtonListeners() {
                     @Override
                     public void payOnClick(View v, int position) {
@@ -87,10 +87,11 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                     @Override
                     public void editOnClick(View v, int position) {
                         Intent intent = new Intent(v.getContext(), EditItemActivity.class);
-                        String itemName = currentList.get(position).getName();
-                        intent.putExtra("Item", itemName);
+                        //String itemName = currentList.get(position).getName();
+                        Item item = currentList.get(position);
+                        intent.putExtra("Item", item);
                         v.getContext().startActivity(intent);
-                        Log.d(TAG, "editOnClick at position " + itemName);
+                        Log.d(TAG, "editOnClick at position " + item);
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
@@ -130,4 +131,6 @@ public class ViewCurrentListActivity extends AppCompatActivity {
             } // on cancelled
         } );
     } // onCreate
+
+
 } // ViewCurrentListActivity

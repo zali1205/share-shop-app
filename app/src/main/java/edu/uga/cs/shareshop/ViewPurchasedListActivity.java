@@ -41,7 +41,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchased_list);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView2);
 
         // use a linear layout manager for the recycler view
         layoutManager = new LinearLayoutManager(this);
@@ -53,7 +53,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
 
         purchasedList = new ArrayList<Item>();
 
-        // listener for handling reading from the databse as it is updated in real time.
+        // listener for handling reading from the database as it is updated in real time.
         dbRef.addListenerForSingleValueEvent( new ValueEventListener() {
 
             @Override

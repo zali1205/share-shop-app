@@ -1,6 +1,8 @@
 package edu.uga.cs.shareshop;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     private String name;
     private String purchaser;
     private boolean isPurchased;
