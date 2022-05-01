@@ -110,10 +110,5 @@ public class CurrentRecyclerAdapter extends RecyclerView.Adapter<CurrentRecycler
     }
 
     @Override
-    public int getItemCount() { // needed for the recycler to populate
-        if( currentList != null )
-            return currentList.size();
-        else
-            return 0;
-    }
+    public int getItemCount() { return currentList.size(); }
 }

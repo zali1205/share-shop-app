@@ -18,7 +18,7 @@
                 android:value=".MainActivity" />
         </activity>
         <activity
-            android:name=".ViewListActivity"
+            android:name=".ViewCurrentListActivity"
             android:parentActivityName=".MainMenu"
             android:exported="false" >
             <!-- The meta-data tag is required if you support API level 15 and lower -->
