@@ -4,6 +4,7 @@
     <string name="not_yet">Unspecified</string>
 
     <string name="pay">Click to pay</string>
+    <string name="undo">Click to undo</string>
     <string name="edit">Click to edit</string>
     <string name="delete">Click to delete</string>
 

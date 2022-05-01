@@ -18,6 +18,7 @@ import com.google.firebase.auth.FirebaseUser;
 public class MainMenu extends AppCompatActivity {
 
     private Button viewListButton;
+    private Button viewPurchasedListButton;
     private Button addNewItemButton;
     private Button settleUpButton;
     private Button signOutButton;
@@ -31,6 +32,8 @@ public class MainMenu extends AppCompatActivity {
         welcomeTextView = findViewById(R.id.welcomeTextView);
         viewListButton = findViewById(R.id.viewListButton);
         viewListButton.setOnClickListener(new ViewListButtonListener());
+        viewPurchasedListButton = findViewById(R.id.viewPurchasedListButton);
+        viewPurchasedListButton.setOnClickListener(new ViewPurchasedListButtonListener());
         addNewItemButton = findViewById(R.id.addNewItemButton);
         addNewItemButton.setOnClickListener(new AddNewItemButtonListener());
         settleUpButton = findViewById(R.id.settleUpButton);
@@ -51,6 +54,14 @@ public class MainMenu extends AppCompatActivity {
         @Override
         public void onClick(View v) {
             Intent mainActivityIntent = new Intent(v.getContext(), ViewCurrentListActivity.class);
+            startActivity(mainActivityIntent);
+        }
+    }
+
+    private class ViewPurchasedListButtonListener implements View.OnClickListener {
+        @Override
+        public void onClick(View v) {
+            Intent mainActivityIntent = new Intent(v.getContext(), ViewPurchasedListActivity.class);
             startActivity(mainActivityIntent);
         }
     }
