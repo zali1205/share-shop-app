@@ -15,6 +15,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -89,8 +90,31 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
+                        String search = currentList.get(position).getName();
+
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
-                        // Query delQuery =db.child("")
+                        DatabaseReference dbRef = db.getReference();
+                        Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search);
+
+                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
+                            @Override
+                            public void onDataChange( DataSnapshot dataSnapshot )
+                            {
+                                for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
+                                {
+                                    postSnapshot.getRef().removeValue();
+                                } // for
+                            } // on data change
+
+                            @Override
+                            public void onCancelled( DatabaseError databaseError )
+                            {
+                                Log.e(TAG, "onCancelled", databaseError.toException());
+                            } // on cancelled
+                        });
+                        // currentList.remove(position);
+                        recyclerAdapter.notifyItemRemoved(position);
+                        recyclerView.setAdapter( recyclerAdapter );
                     } // delete on click
                 }); // setting the recycler adapter
                 recyclerView.setAdapter( recyclerAdapter );

@@ -76,7 +76,6 @@ public class AddNewItemActivity extends AppCompatActivity {
                 String name = editTextName.getText().toString();
 
                 for (Item i : itemsList) {
-                    Log.d("AddNewItemActivity", i.getName());
                     if (name.equalsIgnoreCase(i.getName())) {
                         Toast.makeText(getApplicationContext(), "This item already exists. Please enter a unique item.", Toast.LENGTH_SHORT).show();
                         editTextName.setText("");
