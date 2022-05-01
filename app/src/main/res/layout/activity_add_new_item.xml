@@ -13,6 +13,7 @@
         android:text="Enter Item's Name:"
         app:layout_constraintBottom_toTopOf="@+id/editTextName"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -23,10 +24,23 @@
         android:ems="10"
         android:hint="Name"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/editTextDescription"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <EditText
+        android:id="@+id/editTextDescription"
+        android:layout_width="280dp"
+        android:layout_height="97dp"
+        android:ems="10"
+        android:hint="Item Description"
+        android:inputType="textPersonName"
         app:layout_constraintBottom_toTopOf="@+id/radioGroup"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        app:layout_constraintTop_toBottomOf="@+id/editTextName" />
 
     <RadioGroup
         android:id="@+id/radioGroup"
@@ -35,14 +49,16 @@
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/addButton"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextName">
+        app:layout_constraintTop_toBottomOf="@+id/editTextDescription">
 
         <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="match_parent"
+            android:id="@+id/radioButton3"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Urgent" />
+            android:layout_weight="1"
+            android:text="Please" />
 
         <RadioButton
             android:id="@+id/radioButton2"
@@ -52,11 +68,10 @@
             android:text="Wanted" />
 
         <RadioButton
-            android:id="@+id/radioButton3"
-            android:layout_width="wrap_content"
+            android:id="@+id/radioButton"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Please" />
+            android:text="Urgent" />
     </RadioGroup>
 
     <Button
@@ -68,4 +83,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
