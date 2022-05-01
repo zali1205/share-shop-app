@@ -86,7 +86,11 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                     } // pay on click
                     @Override
                     public void editOnClick(View v, int position) {
-                        Log.d(TAG, "editOnClick at position "+position);
+                        Intent intent = new Intent(v.getContext(), EditItemActivity.class);
+                        String itemName = currentList.get(position).getName();
+                        intent.putExtra("Item", itemName);
+                        v.getContext().startActivity(intent);
+                        Log.d(TAG, "editOnClick at position " + itemName);
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
@@ -112,7 +116,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                                 Log.e(TAG, "onCancelled", databaseError.toException());
                             } // on cancelled
                         });
-                        // currentList.remove(position);
+                        currentList.remove(position);
                         recyclerAdapter.notifyItemRemoved(position);
                         recyclerView.setAdapter( recyclerAdapter );
                     } // delete on click
