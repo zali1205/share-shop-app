@@ -1,5 +1,6 @@
 package edu.uga.cs.shareshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
@@ -26,7 +28,7 @@ import java.util.List;
  *
  * Author - Drew Jenkins
  */
-public class ViewCurrentListActivity extends AppCompatActivity {
+public class ViewCurrentListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
     private final String TAG = "testing recycler view";
 
@@ -73,7 +75,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                     if ( !item.getIsPurchased() ) // needs to not be purchased
                     {
                         currentList.add(item);
-                        Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item );
+                        Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item.getName() );
                     }  // if
                 }  // for
                 Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): setting recyclerAdapter" );
@@ -83,6 +85,12 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                     @Override
                     public void payOnClick(View v, int position) {
                         Log.d(TAG, "payOnClick at position "+position);
+                        DialogFragment newFragment = new PayItemDialogFragment();
+                        Bundle args = new Bundle();
+                        Item item = currentList.get(position);
+                        args.putSerializable("Item", item);
+                        newFragment.setArguments(args);
+                        showDialogFragment(newFragment);
                     } // pay on click
                     @Override
                     public void editOnClick(View v, int position) {
@@ -132,5 +140,12 @@ public class ViewCurrentListActivity extends AppCompatActivity {
         } );
     } // onCreate
 
+    @Override
+    public void onFinishNewJobDialog() {
 
+    }
+
+    public void showDialogFragment(DialogFragment newFragment) {
+        newFragment.show(getSupportFragmentManager(), null);
+    }
 } // ViewCurrentListActivity

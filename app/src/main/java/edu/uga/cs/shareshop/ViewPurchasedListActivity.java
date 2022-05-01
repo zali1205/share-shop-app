@@ -88,6 +88,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
                                 {
                                     postSnapshot.getRef().child("isPurchased").setValue(false);
                                     postSnapshot.getRef().child("purchaser").setValue(null);
+                                    postSnapshot.getRef().child("price").setValue(0);
                                 } // for
                             } // on data change
 

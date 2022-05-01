@@ -7,5 +7,6 @@
     <string name="undo">Click to undo</string>
     <string name="edit">Click to edit</string>
     <string name="delete">Click to delete</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>
