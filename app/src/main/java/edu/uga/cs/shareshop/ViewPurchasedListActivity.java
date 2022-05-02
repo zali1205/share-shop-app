@@ -149,15 +149,15 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());
             } // on cancelled
-        } );
+        });
     } // onCreate
 
     @Override
     public void onFinishNewJobDialog(int position) {
 
-    }
+    } // onFinishNewJobDialog
 
     public void showDialogFragment(DialogFragment newFragment) {
         newFragment.show(getSupportFragmentManager(), null);
-    }
+    } // showDialogFragment
 } // ViewPurchasedListActivity

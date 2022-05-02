@@ -27,7 +27,7 @@ public class Item implements Serializable {
         this.price = 0;
         this.priority = null;
         this.detail = null;
-    }
+    } // Item()
 
     /*
         Constructor used for when the item is first added into the database.
@@ -39,7 +39,7 @@ public class Item implements Serializable {
         this.price = 0;
         this.priority = priority;
         this.detail = detail;
-    }
+    } // Item()
 
     /*
         Constructor which is used when all of the values are known.
@@ -51,7 +51,7 @@ public class Item implements Serializable {
         this.price = price;
         this.priority = priority;
         this.detail = detail;
-    }
+    } // Item()
 
     /*
         Getter for Name.
@@ -140,4 +140,4 @@ public class Item implements Serializable {
         this.detail = detail;
     }
 
-}
+} // Item

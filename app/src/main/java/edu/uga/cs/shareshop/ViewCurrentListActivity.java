@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * This class uses the created recycler adapter to populate a layout with proper cards
- *
- * Author - Drew Jenkins
  */
 public class ViewCurrentListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 

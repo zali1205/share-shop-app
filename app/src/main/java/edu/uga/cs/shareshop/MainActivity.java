@@ -28,7 +28,6 @@ public class MainActivity extends AppCompatActivity {
 
     // Private variables
     private Button signInButton;
-    private Button registerButton;
 
     /*
         onCreate method that is called when the Activity is created.
@@ -40,10 +39,9 @@ public class MainActivity extends AppCompatActivity {
 
         // Getting the IDs for the buttons.
         signInButton = findViewById(R.id.button);
-        registerButton = findViewById(R.id.button2);
         // Assigning the onClickListeners for the buttons.
         signInButton.setOnClickListener(new SignInButtonOnClickListener());
-    }
+    } // onCreate
 
     /*
         Private class that implements the onClickListener for the Sign In Button. Signs the users into the Firebase Database
@@ -59,8 +57,8 @@ public class MainActivity extends AppCompatActivity {
                     .setAvailableProviders(providers)
                     .build();
             signInLauncher.launch(signInIntent);
-        }
-    }
+        } // onClick
+    } // SignInButtonOnClickListener
 
     /*
         ActivityResultLauncher class
@@ -75,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                         @Override
                         public void onActivityResult(FirebaseAuthUIAuthenticationResult result) {
                             onSignInResult(result);
-                        }
+                        } // onActivityResult
                     }
             );
 
@@ -90,13 +88,11 @@ public class MainActivity extends AppCompatActivity {
             // after a successful sign in, start the job leads management activity
             Intent intent = new Intent( this, MainMenu.class );
             startActivity( intent );
-        }
-        else {
+        } else {
             // Sign in failed. If response is null the user canceled the
             Toast.makeText( getApplicationContext(),
                     "Sign in failed",
                     Toast.LENGTH_SHORT).show();
-        }
-    }
-
-}
+        } // if
+    } //onSignInResult
+} // MainActivity
