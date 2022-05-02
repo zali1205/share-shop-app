@@ -34,16 +34,17 @@ public class PayItemDialogFragment extends DialogFragment {
     private EditText editTextPrice;
     private Item item;
     private String userEmail;
+    private int position;
 
     public interface PayItemDialogListener {
-        void onFinishNewJobDialog();
+        void onFinishNewJobDialog(int position);
     }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         item = (Item) getArguments().getSerializable("Item");
-
+        position = getArguments().getInt("Position");
         LayoutInflater inflater = (LayoutInflater) getActivity().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         final View layout = inflater.inflate(R.layout.pay_item_dialog, (ViewGroup) getActivity().findViewById(R.id.root));
 
@@ -92,7 +93,7 @@ public class PayItemDialogFragment extends DialogFragment {
                 }
             });
             PayItemDialogListener listener = (PayItemDialogListener) getActivity();
-            listener.onFinishNewJobDialog();
+            listener.onFinishNewJobDialog(position);
             dismiss();
         }
     }

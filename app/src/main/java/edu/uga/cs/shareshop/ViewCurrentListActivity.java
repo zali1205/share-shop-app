@@ -89,6 +89,7 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
                         Bundle args = new Bundle();
                         Item item = currentList.get(position);
                         args.putSerializable("Item", item);
+                        args.putInt("Position", position);
                         newFragment.setArguments(args);
                         showDialogFragment(newFragment);
                     } // pay on click
@@ -141,8 +142,10 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
     } // onCreate
 
     @Override
-    public void onFinishNewJobDialog() {
-
+    public void onFinishNewJobDialog(int position) {
+        currentList.remove(position);
+        recyclerAdapter.notifyItemRemoved(position);
+        recyclerView.setAdapter(recyclerAdapter);
     }
 
     public void showDialogFragment(DialogFragment newFragment) {
