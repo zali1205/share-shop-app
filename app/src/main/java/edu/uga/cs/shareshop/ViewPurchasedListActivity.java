@@ -26,7 +26,7 @@ import java.util.List;
  *
  * Author - Drew Jenkins
  */
-public class ViewPurchasedListActivity extends AppCompatActivity {
+public class ViewPurchasedListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
     private final String TAG = "testing recycler view";
 
@@ -104,7 +104,14 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
                     } // pay on click
                     @Override
                     public void editOnClick(View v, int position) {
-                        Log.d(TAG, "editOnClick at position "+position);
+                        Log.d(TAG, "editOnClick at position " + position);
+                        DialogFragment newFragment = new PayItemDialogFragment();
+                        Bundle args = new Bundle();
+                        Item item = purchasedList.get(position);
+                        args.putSerializable("Item", item);
+                        args.putInt("Position", position);
+                        newFragment.setArguments(args);
+                        showDialogFragment(newFragment);
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
@@ -144,4 +151,13 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
             } // on cancelled
         } );
     } // onCreate
+
+    @Override
+    public void onFinishNewJobDialog(int position) {
+
+    }
+
+    public void showDialogFragment(DialogFragment newFragment) {
+        newFragment.show(getSupportFragmentManager(), null);
+    }
 } // ViewPurchasedListActivity

@@ -22,6 +22,9 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
+/**
+ *
+ */
 public class EditItemActivity extends AppCompatActivity {
 
     private EditText editTextName;
