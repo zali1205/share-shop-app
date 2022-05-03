@@ -62,7 +62,7 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
         currentList = new ArrayList<Item>();
 
         // listener for handling reading from the database as it is updated in real time.
-        dbRef.addListenerForSingleValueEvent( new ValueEventListener() {
+        dbRef.addValueEventListener( new ValueEventListener() {
 
             @Override
             public void onDataChange( DataSnapshot snapshot ) {

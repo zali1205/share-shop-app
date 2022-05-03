@@ -42,10 +42,11 @@
 
                 <TextView
                     android:id="@+id/detail2"
-                    android:layout_width="220dp"
+                    android:layout_width="240dp"
                     android:layout_height="wrap_content"
                     android:text="@string/not_yet"
                     android:textSize="14sp" />
+
             </LinearLayout>
 
             <ImageView

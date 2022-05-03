@@ -80,7 +80,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                         DatabaseReference dbRef = db.getReference();
                         Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search);
 
-                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
+                        delQuery.addValueEventListener( new ValueEventListener() {
                             @Override
                             public void onDataChange( DataSnapshot dataSnapshot )
                             {
