@@ -41,7 +41,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchased_list);
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView2);
 
         // use a linear layout manager for the recycler view
         layoutManager = new LinearLayoutManager(this);
