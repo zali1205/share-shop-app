@@ -26,7 +26,7 @@ import java.util.List;
  *
  * Author - Drew Jenkins
  */
-public class ViewPurchasedListActivity extends AppCompatActivity {
+public class ViewPurchasedListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
     private final String TAG = "testing recycler view";
 
@@ -53,7 +53,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
 
         purchasedList = new ArrayList<Item>();
 
-        // listener for handling reading from the databse as it is updated in real time.
+        // listener for handling reading from the database as it is updated in real time.
         dbRef.addListenerForSingleValueEvent( new ValueEventListener() {
 
             @Override
@@ -88,6 +88,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
                                 {
                                     postSnapshot.getRef().child("isPurchased").setValue(false);
                                     postSnapshot.getRef().child("purchaser").setValue(null);
+                                    postSnapshot.getRef().child("price").setValue(0);
                                 } // for
                             } // on data change
 
@@ -103,7 +104,14 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
                     } // pay on click
                     @Override
                     public void editOnClick(View v, int position) {
-                        Log.d(TAG, "editOnClick at position "+position);
+                        Log.d(TAG, "editOnClick at position " + position);
+                        DialogFragment newFragment = new PayItemDialogFragment();
+                        Bundle args = new Bundle();
+                        Item item = purchasedList.get(position);
+                        args.putSerializable("Item", item);
+                        args.putInt("Position", position);
+                        newFragment.setArguments(args);
+                        showDialogFragment(newFragment);
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
@@ -141,6 +149,15 @@ public class ViewPurchasedListActivity extends AppCompatActivity {
             public void onCancelled(DatabaseError databaseError) {
                 System.out.println("The read failed: " + databaseError.getMessage());
             } // on cancelled
-        } );
+        });
     } // onCreate
+
+    @Override
+    public void onFinishNewJobDialog(int position) {
+
+    } // onFinishNewJobDialog
+
+    public void showDialogFragment(DialogFragment newFragment) {
+        newFragment.show(getSupportFragmentManager(), null);
+    } // showDialogFragment
 } // ViewPurchasedListActivity

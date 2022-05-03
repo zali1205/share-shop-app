@@ -1,5 +1,6 @@
 package edu.uga.cs.shareshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 
@@ -23,10 +25,8 @@ import java.util.List;
 
 /**
  * This class uses the created recycler adapter to populate a layout with proper cards
- *
- * Author - Drew Jenkins
  */
-public class ViewCurrentListActivity extends AppCompatActivity {
+public class ViewCurrentListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
     private final String TAG = "testing recycler view";
 
@@ -61,7 +61,7 @@ public class ViewCurrentListActivity extends AppCompatActivity {
 
         currentList = new ArrayList<Item>();
 
-        // listener for handling reading from the databse as it is updated in real time.
+        // listener for handling reading from the database as it is updated in real time.
         dbRef.addListenerForSingleValueEvent( new ValueEventListener() {
 
             @Override
@@ -73,24 +73,32 @@ public class ViewCurrentListActivity extends AppCompatActivity {
                     if ( !item.getIsPurchased() ) // needs to not be purchased
                     {
                         currentList.add(item);
-                        Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item );
+                        Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item.getName() );
                     }  // if
                 }  // for
                 Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): setting recyclerAdapter" );
 
-                // Now, create a CurrentRecyclerAdapter to populate a ReceyclerView to display the job leads.
+                // Now, create a CurrentRecyclerAdapter to populate a RecyclerView to display the job leads.
                 recyclerAdapter = new CurrentRecyclerAdapter( currentList, new CurrentRecyclerAdapter.ButtonListeners() {
                     @Override
                     public void payOnClick(View v, int position) {
                         Log.d(TAG, "payOnClick at position "+position);
+                        DialogFragment newFragment = new PayItemDialogFragment();
+                        Bundle args = new Bundle();
+                        Item item = currentList.get(position);
+                        args.putSerializable("Item", item);
+                        args.putInt("Position", position);
+                        newFragment.setArguments(args);
+                        showDialogFragment(newFragment);
                     } // pay on click
                     @Override
                     public void editOnClick(View v, int position) {
                         Intent intent = new Intent(v.getContext(), EditItemActivity.class);
-                        String itemName = currentList.get(position).getName();
-                        intent.putExtra("Item", itemName);
+                        //String itemName = currentList.get(position).getName();
+                        Item item = currentList.get(position);
+                        intent.putExtra("Item", item);
                         v.getContext().startActivity(intent);
-                        Log.d(TAG, "editOnClick at position " + itemName);
+                        Log.d(TAG, "editOnClick at position " + item);
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
@@ -130,4 +138,15 @@ public class ViewCurrentListActivity extends AppCompatActivity {
             } // on cancelled
         } );
     } // onCreate
+
+    @Override
+    public void onFinishNewJobDialog(int position) {
+        currentList.remove(position);
+        recyclerAdapter.notifyItemRemoved(position);
+        recyclerView.setAdapter(recyclerAdapter);
+    }
+
+    public void showDialogFragment(DialogFragment newFragment) {
+        newFragment.show(getSupportFragmentManager(), null);
+    }
 } // ViewCurrentListActivity

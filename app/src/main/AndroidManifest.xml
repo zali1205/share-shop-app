@@ -11,7 +11,14 @@
         android:theme="@style/Theme.ShareShop">
         <activity
             android:name=".EditItemActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".ViewCurrentListActivity">
+
+            <!-- The meta-data tag is required if you support API level 15 and lower -->
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity
             android:name=".SettleUpActivity"
             android:exported="false"
@@ -54,7 +61,7 @@
         </activity>
         <activity
             android:name=".MainMenu"
-            android:exported="false"></activity>
+            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true">
