@@ -80,23 +80,19 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                     @Override
                     public void undoOnClick(View v, int position) {
                         String search = purchasedList.get(position).getName();
-                        final Item temp = new Item( purchasedList.get(position).getName(),
-                                purchasedList.get(position).getPriority(), purchasedList.get(position).getDetail());
 
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
                         DatabaseReference dbRef = db.getReference();
                         Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search);
 
-                        delQuery.addValueEventListener( new ValueEventListener() {
+                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
                             @Override
                             public void onDataChange( DataSnapshot dataSnapshot )
                             {
                                 for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
                                 {
-                                    postSnapshot.getRef().removeValue();
-                                   /* postSnapshot.getRef().child("purchased").setValue(false);
-                                   // postSnapshot.getRef().child("purchaser").removeValue();
-                                    postSnapshot.getRef().child("price").setValue(0.0); */
+                                    postSnapshot.getRef().child("purchased").setValue(false);
+                                    postSnapshot.getRef().child("price").setValue(0.0);
                                 } // for
 
                             } // on data change
@@ -107,20 +103,6 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                                 Log.e(TAG, "onCancelled", databaseError.toException());
                             } // on cancelled
                         });
-                        FirebaseDatabase db2 = FirebaseDatabase.getInstance();
-                        DatabaseReference dbRef2 = db2.getReference("Items");
-                        dbRef2.push().setValue(temp).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void unused) {
-                                // Alerts the user that the item has been created.
-                                Toast.makeText(getApplicationContext(), "Added " + temp.getName() + " to the list!", Toast.LENGTH_SHORT).show();
-                            } //onSuccess
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Toast.makeText(getApplicationContext(), "Failed to create Item for " + temp.getName(), Toast.LENGTH_SHORT).show();
-                            } //onFailure
-                        }); // addon successlistener
 
                         purchasedList.remove(position);
                         recyclerAdapter.notifyItemRemoved(position);
@@ -151,7 +133,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                             {
                                 for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
                                 {
-                                    postSnapshot.getRef().removeValue();
+                                        postSnapshot.getRef().removeValue();
                                 } // for
                             } // on data change
 
