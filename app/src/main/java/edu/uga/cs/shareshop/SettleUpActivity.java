@@ -59,7 +59,7 @@ public class SettleUpActivity extends AppCompatActivity {
         floatingButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query delQuery =dbRef.orderByChild("Purchased").equalTo(true);
+                Query delQuery =dbRef.orderByChild("purchased").equalTo(true);
 
                 delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
                     @Override

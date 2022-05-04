@@ -27,12 +27,13 @@ import java.util.List;
 
 /**
  * This class uses the created recycler adapter to populate a layout with proper cards
+ * Also is used for handling the buttons of our project to move back edit or delete
  *
  * Author - Drew Jenkins
  */
 public class ViewPurchasedListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
-    private final String TAG = "testing recycler view";
+    private final String TAG = "add act"; // debugging
 
     private RecyclerView recyclerView; // view
     private RecyclerView.LayoutManager layoutManager;
@@ -62,12 +63,11 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
 
             @Override
             public void onDataChange( DataSnapshot snapshot ) {
-                purchasedList.clear();
-                // Once we have a DataSnapshot object, knowing that this is a list,
-                // we need to iterate over the elements and place them on a List.
+                purchasedList.clear(); // necessary for duplicate issues
+                // iterate over the list to check over what
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
                     Item item = postSnapshot.getValue(Item.class);
-                    if ( item.getPurchased() ) // needs to not be purchased
+                    if ( item.getPurchased() ) //  is purchased
                     {
                         purchasedList.add(item);
                         Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item );
@@ -81,16 +81,17 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                     public void undoOnClick(View v, int position) {
                         String search = purchasedList.get(position).getName();
 
+                        // seed database for a query of this specific item to move back
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
                         DatabaseReference dbRef = db.getReference();
                         Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search);
 
-                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
+                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() { // only triggfer this time
                             @Override
                             public void onDataChange( DataSnapshot dataSnapshot )
                             {
                                 for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
-                                {
+                                { // update the necessary values of purchase status and price
                                     postSnapshot.getRef().child("purchased").setValue(false);
                                     postSnapshot.getRef().child("price").setValue(0.0);
                                 } // for
@@ -104,7 +105,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                             } // on cancelled
                         });
 
-                        purchasedList.remove(position);
+                        purchasedList.remove(position); // edit local list
                         recyclerAdapter.notifyItemRemoved(position);
                         recyclerView.setAdapter( recyclerAdapter );
                     } // undo on click
