@@ -1,5 +1,6 @@
 package edu.uga.cs.shareshop;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -9,7 +10,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -76,6 +80,8 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                     @Override
                     public void undoOnClick(View v, int position) {
                         String search = purchasedList.get(position).getName();
+                        final Item temp = new Item( purchasedList.get(position).getName(),
+                                purchasedList.get(position).getPriority(), purchasedList.get(position).getDetail());
 
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
                         DatabaseReference dbRef = db.getReference();
@@ -87,10 +93,12 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                             {
                                 for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
                                 {
-                                    postSnapshot.getRef().child("purchased").setValue(false);
+                                    postSnapshot.getRef().removeValue();
+                                   /* postSnapshot.getRef().child("purchased").setValue(false);
                                    // postSnapshot.getRef().child("purchaser").removeValue();
-                                    postSnapshot.getRef().child("price").setValue(  0.0);
+                                    postSnapshot.getRef().child("price").setValue(0.0); */
                                 } // for
+
                             } // on data change
 
                             @Override
@@ -99,10 +107,25 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                                 Log.e(TAG, "onCancelled", databaseError.toException());
                             } // on cancelled
                         });
+                        FirebaseDatabase db2 = FirebaseDatabase.getInstance();
+                        DatabaseReference dbRef2 = db2.getReference("Items");
+                        dbRef2.push().setValue(temp).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void unused) {
+                                // Alerts the user that the item has been created.
+                                Toast.makeText(getApplicationContext(), "Added " + temp.getName() + " to the list!", Toast.LENGTH_SHORT).show();
+                            } //onSuccess
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Toast.makeText(getApplicationContext(), "Failed to create Item for " + temp.getName(), Toast.LENGTH_SHORT).show();
+                            } //onFailure
+                        }); // addon successlistener
+
                         purchasedList.remove(position);
                         recyclerAdapter.notifyItemRemoved(position);
                         recyclerView.setAdapter( recyclerAdapter );
-                    } // pay on click
+                    } // undo on click
                     @Override
                     public void editOnClick(View v, int position) {
                         Log.d(TAG, "editOnClick at position " + position);
