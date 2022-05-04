@@ -70,7 +70,7 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
                 // we need to iterate over the elements and place them on a List.
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
                     Item item = postSnapshot.getValue(Item.class);
-                    if ( !item.getIsPurchased() ) // needs to not be purchased
+                    if ( !item.getPurchased() ) // needs to not be purchased
                     {
                         currentList.add(item);
                         Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item.getName() );

@@ -103,7 +103,7 @@ public class PayItemDialogFragment extends DialogFragment {
                     // Getting the Item
                     for (DataSnapshot postSnapShot : snapshot.getChildren()) {
                         // Updating the Item's value
-                        postSnapShot.getRef().child("isPurchased").setValue(true);
+                        postSnapShot.getRef().child("purchased").setValue(true);
                         postSnapShot.getRef().child("purchaser").setValue(userEmail);
                         postSnapShot.getRef().child("price").setValue(price);
                     } // for

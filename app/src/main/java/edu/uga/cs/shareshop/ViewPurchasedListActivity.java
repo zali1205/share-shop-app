@@ -63,7 +63,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                 // we need to iterate over the elements and place them on a List.
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
                     Item item = postSnapshot.getValue(Item.class);
-                    if ( item.getIsPurchased() ) // needs to not be purchased
+                    if ( item.getPurchased() ) // needs to not be purchased
                     {
                         purchasedList.add(item);
                         Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item );
@@ -87,9 +87,9 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                             {
                                 for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
                                 {
-                                    postSnapshot.getRef().child("isPurchased").setValue(false);
-                                    postSnapshot.getRef().child("purchaser").setValue(null);
-                                    postSnapshot.getRef().child("price").setValue(0);
+                                    postSnapshot.getRef().child("purchased").setValue(false);
+                                   // postSnapshot.getRef().child("purchaser").removeValue();
+                                    postSnapshot.getRef().child("price").setValue(  0.0);
                                 } // for
                             } // on data change
 

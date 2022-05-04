@@ -12,7 +12,7 @@ public class Item implements Serializable {
     // Private variables
     private String name;
     private String purchaser;
-    private boolean isPurchased;
+    private boolean purchased;
     private double price;
     private String priority;
     private String detail;
@@ -23,7 +23,7 @@ public class Item implements Serializable {
     public Item() {
         this.name = null;
         this.purchaser = null;
-        this.isPurchased = false;
+        this.purchased = false;
         this.price = 0;
         this.priority = null;
         this.detail = null;
@@ -35,7 +35,7 @@ public class Item implements Serializable {
     public Item(String name, String priority, String detail) {
         this.name = name;
         this.purchaser = null;
-        this.isPurchased = false;
+        this.purchased = false;
         this.price = 0;
         this.priority = priority;
         this.detail = detail;
@@ -47,7 +47,7 @@ public class Item implements Serializable {
     public Item(String name, String purchaser, boolean isPurchased, double price, String priority, String detail) {
         this.name = name;
         this.purchaser = purchaser;
-        this.isPurchased = isPurchased;
+        this.purchased = isPurchased;
         this.price = price;
         this.priority = priority;
         this.detail = detail;
@@ -84,15 +84,15 @@ public class Item implements Serializable {
     /*
         Getter for isPurchased.
      */
-    public boolean getIsPurchased() {
-        return this.isPurchased;
+    public boolean getPurchased() {
+        return this.purchased;
     }
 
     /*
         Setter for isPurchased.
      */
-    public void setIsPurchased(boolean isPurchased) {
-        this.isPurchased = isPurchased;
+    public void setPurchased(boolean isPurchased) {
+        this.purchased = isPurchased;
     }
 
     /*

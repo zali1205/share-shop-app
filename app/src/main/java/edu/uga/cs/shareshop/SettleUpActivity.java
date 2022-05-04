@@ -59,7 +59,7 @@ public class SettleUpActivity extends AppCompatActivity {
         floatingButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query delQuery =dbRef.orderByChild("isPurchased").equalTo(true);
+                Query delQuery =dbRef.orderByChild("Purchased").equalTo(true);
 
                 delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
                     @Override
@@ -98,7 +98,7 @@ public class SettleUpActivity extends AppCompatActivity {
                 // we need to iterate over the elements and place them on a List.
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
                     Item item = postSnapshot.getValue(Item.class);
-                    if ( item.getIsPurchased() ) // needs to not be purchased
+                    if ( item.getPurchased() ) // needs to not be purchased
                     {
                         int index = -1;
                         User user = new User( item.getPurchaser(), item.getPrice() );
