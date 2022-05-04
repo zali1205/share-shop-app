@@ -92,10 +92,11 @@ public class SettleUpActivity extends AppCompatActivity {
 
             @Override
             public void onDataChange( DataSnapshot snapshot ) {
+                settleList.clear();
+                identities.clear();
                 // Once we have a DataSnapshot object, knowing that this is a list,
                 // we need to iterate over the elements and place them on a List.
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
-                    settleList.clear();
                     Item item = postSnapshot.getValue(Item.class);
                     if ( item.getIsPurchased() ) // needs to not be purchased
                     {
