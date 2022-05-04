@@ -1,6 +1,8 @@
 package edu.uga.cs.shareshop;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +19,11 @@ import java.util.Vector;
  */
 public class SettleRecyclerAdapter extends RecyclerView.Adapter<SettleRecyclerAdapter.SettleHolder> {
 
-    private ArrayList<User> settleList; // list for working with recycler
+    private String TAG = "issue";
+    private List<User> settleList; // list for working with recycler
 
 
-    public SettleRecyclerAdapter( ArrayList<User> settleList ) {
+    public SettleRecyclerAdapter( List<User> settleList ) {
         this.settleList = settleList;
     } // constructor takes a list to start
 
@@ -53,6 +56,8 @@ public class SettleRecyclerAdapter extends RecyclerView.Adapter<SettleRecyclerAd
         // set ui's to proper values from the imported list
         holder.name.setText( "Bought by: " + user.getName() );
         holder.price.setText( "Price: $" + user.getTotal() );
+        Log.d( TAG, user.getName() + user.getTotal() );
+
     }
 
     @Override

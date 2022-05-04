@@ -90,7 +90,7 @@ public class PurchasedRecyclerAdapter extends RecyclerView.Adapter<PurchasedRecy
         // set ui's to proper values from the imported list
         holder.title.setText( item.getName() );
 
-        holder.detail.setText( "Bought by: " + item.getPurchaser() + "\n Price: $" + item.getPrice() + "\n" + item.getDetail() );
+        holder.detail.setText( "Bought by: " + item.getPurchaser() + "\nPrice: $" + item.getPrice() + "\n" + item.getDetail() );
     }
 
     @Override

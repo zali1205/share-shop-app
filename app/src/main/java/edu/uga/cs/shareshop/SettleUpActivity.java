@@ -51,8 +51,6 @@ public class SettleUpActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
-
-
         // get a Firebase DB instance reference
         FirebaseDatabase db = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = db.getReference("Items");
@@ -61,7 +59,7 @@ public class SettleUpActivity extends AppCompatActivity {
         floatingButton.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Query delQuery =dbRef.child("Items").orderByChild("isPurchased").equalTo(true);
+                Query delQuery =dbRef.orderByChild("isPurchased").equalTo(true);
 
                 delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
                     @Override
@@ -69,6 +67,7 @@ public class SettleUpActivity extends AppCompatActivity {
                     {
                         for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
                         {
+                            Log.d(TAG, "removing: " + postSnapshot.getValue());
                             postSnapshot.getRef().removeValue();
                         } // for
                     } // on data change
@@ -88,7 +87,6 @@ public class SettleUpActivity extends AppCompatActivity {
         settleList = new ArrayList<User>();
         identities = new ArrayList<String>();
 
-
         // listener for handling reading from the database as it is updated in real time.
         dbRef.addValueEventListener( new ValueEventListener() {
 
@@ -97,6 +95,7 @@ public class SettleUpActivity extends AppCompatActivity {
                 // Once we have a DataSnapshot object, knowing that this is a list,
                 // we need to iterate over the elements and place them on a List.
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
+                    settleList.clear();
                     Item item = postSnapshot.getValue(Item.class);
                     if ( item.getIsPurchased() ) // needs to not be purchased
                     {
@@ -118,7 +117,9 @@ public class SettleUpActivity extends AppCompatActivity {
                     }  // if
                 }  // for
 
+
                 recyclerAdapter = new SettleRecyclerAdapter( settleList );
+                Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): setting recyclerAdapter" );
                 recyclerView.setAdapter( recyclerAdapter );
             } // on data change
 
