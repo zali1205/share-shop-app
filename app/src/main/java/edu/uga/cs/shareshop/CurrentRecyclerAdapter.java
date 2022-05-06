@@ -19,10 +19,10 @@ public class CurrentRecyclerAdapter extends RecyclerView.Adapter<CurrentRecycler
 
     private List<Item> currentList; // list for working with recycler
 
-    public ButtonListeners onClick;
+    public ButtonListeners onClick; // need these for linking all buttons of cards
 
     public interface ButtonListeners {
-
+        // self explanatory names
         void payOnClick( View v, int position );
         void editOnClick( View v, int position );
         void deleteOnClick( View v, int position );
@@ -56,7 +56,7 @@ public class CurrentRecyclerAdapter extends RecyclerView.Adapter<CurrentRecycler
             edit = itemView.findViewById( R.id.edit );
             delete = itemView.findViewById( R.id.delete );
 
-            // setting click listeners
+            // setting click listeners, they need positions to provide
             pay.setOnClickListener( new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

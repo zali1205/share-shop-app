@@ -33,7 +33,8 @@ import java.util.List;
  */
 public class ViewPurchasedListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
-    private final String TAG = "add act"; // debugging
+    // any open areas without code are sufficiently similar to other work in view current list activity
+    private final String TAG = "purchased listings"; // debugging
 
     private RecyclerView recyclerView; // view
     private RecyclerView.LayoutManager layoutManager;
@@ -70,10 +71,10 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                     if ( item.getPurchased() ) //  is purchased
                     {
                         purchasedList.add(item);
-                        Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item );
+                        Log.d( TAG, "added: " + item );
                     }  // if
                 }  // for
-                Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): setting recyclerAdapter" );
+                Log.d( TAG, "setting recyclerAdapter" );
 
                 // Now, create a purchasedRecyclerAdapter to populate a ReceyclerView to display the job leads.
                 recyclerAdapter = new PurchasedRecyclerAdapter( purchasedList, new PurchasedRecyclerAdapter.ButtonListeners() {
@@ -86,7 +87,7 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                         DatabaseReference dbRef = db.getReference();
                         Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search);
 
-                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() { // only triggfer this time
+                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() { // only trigger this time
                             @Override
                             public void onDataChange( DataSnapshot dataSnapshot )
                             {
@@ -95,7 +96,6 @@ public class ViewPurchasedListActivity extends AppCompatActivity implements PayI
                                     postSnapshot.getRef().child("purchased").setValue(false);
                                     postSnapshot.getRef().child("price").setValue(0.0);
                                 } // for
-
                             } // on data change
 
                             @Override

@@ -1,5 +1,9 @@
 package edu.uga.cs.shareshop;
 
+/*
+ * POJO for using with the settling up activity
+ * Author - Drew Jenkins
+ */
 public class User {
     // Private variables
     private String name;

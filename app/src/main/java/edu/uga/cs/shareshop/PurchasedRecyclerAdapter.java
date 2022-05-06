@@ -19,15 +19,16 @@ public class PurchasedRecyclerAdapter extends RecyclerView.Adapter<PurchasedRecy
 
     private List<Item> purchasedList; // list for working with recycler
 
-    public ButtonListeners onClick;
+    public ButtonListeners onClick; // interface class reference
 
     public interface ButtonListeners {
-
+        // interface for new set of buttons on the cards
         void undoOnClick( View v, int position );
         void editOnClick( View v, int position );
         void deleteOnClick( View v, int position );
     }
 
+    // adapter needs list and listeners for button controls
     public PurchasedRecyclerAdapter( List<Item> purchasedList, ButtonListeners listener ) {
         this.purchasedList = purchasedList;
         onClick = listener;

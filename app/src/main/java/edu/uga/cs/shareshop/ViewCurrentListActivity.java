@@ -25,10 +25,11 @@ import java.util.List;
 
 /**
  * This class uses the created recycler adapter to populate a layout with proper cards
+ * Author - Drew Jenkins
  */
 public class ViewCurrentListActivity extends AppCompatActivity implements PayItemDialogFragment.PayItemDialogListener {
 
-    private final String TAG = "testing recycler view";
+    private final String TAG = "current list testing";
 
     private RecyclerView recyclerView; // view
     private RecyclerView.LayoutManager layoutManager;
@@ -39,12 +40,12 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_current_list);
+        setContentView(R.layout.activity_current_list); // inflate
 
-        recyclerView = findViewById(R.id.recyclerView);
+        recyclerView = findViewById(R.id.recyclerView); // bind
 
         FloatingActionButton floatingButton = findViewById(R.id.floatingActionButton);
-        floatingButton.setOnClickListener( new View.OnClickListener() {
+        floatingButton.setOnClickListener( new View.OnClickListener() { // launch new item activity
             @Override
             public void onClick(View v) {
                 Intent mainActivityIntent = new Intent(v.getContext(), AddNewItemActivity.class);
@@ -65,23 +66,23 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
         dbRef.addValueEventListener( new ValueEventListener() {
             @Override
             public void onDataChange( DataSnapshot snapshot ) {
-                currentList.clear();
+                currentList.clear(); // very important clear
                 // Once we have a DataSnapshot object, knowing that this is a list,
                 // we need to iterate over the elements and place them on a List.
                 for( DataSnapshot postSnapshot: snapshot.getChildren() ) {
                     Item item = postSnapshot.getValue(Item.class);
                     if ( !item.getPurchased() ) // needs to not be purchased
                     {
-                        currentList.add(item);
-                        Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): added: " + item.getName() );
+                        currentList.add(item); // update list from read
+                        Log.d( TAG, "added: " + item.getName() );
                     }  // if
                 }  // for
-                Log.d( TAG, "ReviewJobLeadsActivity.onCreate(): setting recyclerAdapter" );
+                Log.d( TAG, "setting recyclerAdapter" );
 
                 // Now, create a CurrentRecyclerAdapter to populate a RecyclerView to display the job leads.
                 recyclerAdapter = new CurrentRecyclerAdapter( currentList, new CurrentRecyclerAdapter.ButtonListeners() {
                     @Override
-                    public void payOnClick(View v, int position) {
+                    public void payOnClick(View v, int position) { // setting intent for the pay dialog
                         Log.d(TAG, "payOnClick at position "+position);
                         DialogFragment newFragment = new PayItemDialogFragment();
                         Bundle args = new Bundle();
@@ -92,9 +93,8 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
                         showDialogFragment(newFragment);
                     } // pay on click
                     @Override
-                    public void editOnClick(View v, int position) {
+                    public void editOnClick(View v, int position) { // setting intent for editing
                         Intent intent = new Intent(v.getContext(), EditItemActivity.class);
-                        //String itemName = currentList.get(position).getName();
                         Item item = currentList.get(position);
                         intent.putExtra("Item", item);
                         v.getContext().startActivity(intent);
@@ -102,19 +102,20 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
                     } // edit on click
                     @Override
                     public void deleteOnClick(View v, int position) {
-                        String search = currentList.get(position).getName();
+                        String search = currentList.get(position).getName(); // get name of item selected
 
+                        // open up database reference
                         FirebaseDatabase db = FirebaseDatabase.getInstance();
                         DatabaseReference dbRef = db.getReference();
-                        Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search);
+                        Query delQuery =dbRef.child("Items").orderByChild("name").equalTo(search); // find the search
 
-                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() {
+                        delQuery.addListenerForSingleValueEvent( new ValueEventListener() { // only listen once please
                             @Override
                             public void onDataChange( DataSnapshot dataSnapshot )
                             {
                                 for ( DataSnapshot postSnapshot: dataSnapshot.getChildren() )
                                 {
-                                    postSnapshot.getRef().removeValue();
+                                    postSnapshot.getRef().removeValue(); // once found remove
                                 } // for
                             } // on data change
 
@@ -124,12 +125,12 @@ public class ViewCurrentListActivity extends AppCompatActivity implements PayIte
                                 Log.e(TAG, "onCancelled", databaseError.toException());
                             } // on cancelled
                         });
-                        currentList.remove(position);
-                        recyclerAdapter.notifyItemRemoved(position);
-                        recyclerView.setAdapter( recyclerAdapter );
+                        currentList.remove(position); // update list
+                        recyclerAdapter.notifyItemRemoved(position); // notify adapter
+                        recyclerView.setAdapter( recyclerAdapter ); // reset
                     } // delete on click
                 }); // setting the recycler adapter
-                recyclerView.setAdapter( recyclerAdapter );
+                recyclerView.setAdapter( recyclerAdapter ); // set at end of data change
             } // on data change
 
             @Override
